@@ -1,0 +1,1 @@
+monster plaatje: https://www.neoxian.city/@saachi/splinterland-s-weekly-challenge-sea-monster

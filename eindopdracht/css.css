@@ -1,0 +1,76 @@
+body{
+    background-image: url(images/zee.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+.image-container {
+    display: flex;
+    justify-content: center; /* Center items horizontally */
+}
+
+.image-container article {
+    max-width: 100%; /* Optional: Ensures articles do not exceed container width */
+}
+
+.image-container img {
+    width: 250px; /* Set a specific width */
+}
+
+#wapens{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+#wapens>img{
+    width: 100px;
+    background-color: white;
+    padding: 15px;
+    margin: 10px;
+    border-radius: 15px;
+    border: solid 4px rgb(124, 124, 124);
+}
+
+#hart{
+    display: flex;
+}
+
+div{
+    justify-content: center;
+    align-items: center;
+}
+
+h1{
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+#progressBar {
+    display: flex;
+    margin-bottom: 100px;
+}
+
+#monster2{
+    height: 40px;
+    width: 50px;
+}
+
+#leeg{
+    height: 40px;
+    width: 250px;
+}
+
+h1{
+    color: rgb(69, 69, 69);
+}
+
+p{
+    margin: 0;
+    text-align: center;
+}
+
+.interface{
+    display: block;
+}
