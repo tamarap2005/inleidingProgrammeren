@@ -20,11 +20,36 @@ const emmerWater = document.getElementById("emmerWater");
 const pElement = document.getElementById("pElement");
 const gameOverPlaatje = document.getElementById("#gameOver");
 
+// audio
+const kanon = new Audio("sounds/cannon.mp3");
+const gameOverAudio = new Audio("sounds/rawr.mp3");
+
+const progressBarImages = [
+    "images/pb0.png",
+    "images/pb1.png",
+    "images/pb2.png",
+    "images/pb3.png",
+    "images/pb4.png",
+    "images/pb5.png",
+    "images/pb6.png",
+    "images/pb7.png",
+    "images/pb8.png",
+    "images/pb9.png",
+    "images/pb10.png",
+    "images/pb11.png",
+    "images/pb12.png"
+]
+
+const bootSuppliesImages = [
+    "images/0supplies.png",
+    "images/1supplies.png",
+    "images/2supplies.png",
+    "images/3supplies.png",
+    "images/4supplies.png"
+];
+
 // naamveld
 let userName;
-
-// audio
-let kanon = new Audio("sounds/cannon.mp3");
 
 // progress bar monster
 let monsterHealth = 7;
@@ -84,6 +109,7 @@ function verhoogProgressBarMonster(){
         if(monsterHealth == 12){
             pElement.textContent = "Game over...";
             gameBegonnen = false;
+            gameOverAudio.play();
         }
 
         updateMonsterProgressBar();
@@ -110,7 +136,7 @@ function kanonSchot(){
 }
 
 function updateMonsterProgressBar(){
-    progressBar.src = "images/pb" + monsterHealth + ".png";
+    progressBar.src = progressBarImages[monsterHealth];
 }
 
 function verlaagSupplies(){
@@ -118,7 +144,7 @@ function verlaagSupplies(){
         bootSupplies--;
         bootSuppliesGrens();
 
-        if(bootSupplies == 0 && knoppenAan){
+        if(bootSupplies == 0){
             knoppenAan = false;
             // geschreven door bestieeeeeeee
             // set alle knoppen uit
@@ -141,11 +167,8 @@ function verlaagSupplies(){
 }
 
 function updateBootProgressBar(){
-    getalVeld2.src = "images/" + bootSupplies + "supplies.png";
+    getalVeld2.src = bootSuppliesImages[bootSupplies];
 }
-
-// verandering in de progressbar monster
-setInterval(verhoogProgressBarMonster, 2000);
 
 // verandering in de progressbar boot
 setInterval(function(){
@@ -155,6 +178,11 @@ setInterval(function(){
         updateBootProgressBar();
     }
 }, 3500);
+
+// buttonNaam
+buttonNaam.addEventListener('click', naamIngevuld);
+
+startKnop.addEventListener('click', startGame);
 
 // knoppen zorgen ervoor dat de progressbar monster werkt
 koekjeKnop.addEventListener('click', verhoogProgressBarMonster);
@@ -168,7 +196,5 @@ emmerWater.addEventListener('click', verlaagSupplies);
 kanonKnop.addEventListener('click', kanonSchot);
 kanonKnop.addEventListener('click', verlaagSupplies);
 
-// buttonNaam
-buttonNaam.addEventListener('click', naamIngevuld);
-
-startKnop.addEventListener('click', startGame);
+// verhoog health van monster elke 2 seconden
+setInterval(verhoogProgressBarMonster, 2000);
