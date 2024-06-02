@@ -1,96 +1,174 @@
-let naamVeld = document.querySelector("#naamveld");
-let naam = "demi"
+// naamveld
+// met hulp van demi
+const nameInput = document.getElementById("nameInput");
+const buttonNaam = document.getElementById("buttonNaam");
+const uitlegElement = document.getElementById("naamInUitleg")
 
-let zeeMonster = document.querySelector("#monster");
-let wapens = document.querySelector("#wapens");
+// progressbar monster
+const progressBar = document.getElementById("leeg");
+const koekjeKnop = document.getElementById("koekje");
+const catapultKnop = document.getElementById("catapult");
+const kanonKnop = document.getElementById("kanon");
 
-let roar = new Audio("sounds/rawr.mp3")
-let kanon = new Audio("sounds/cannon.mp3")
+const startKnop = document.getElementById("startKnop");
 
-let getal = 0
-let mysteryNumber = Math.random() * 5
-let barStatus = true
-mysteryNumber = Math.round(mysteryNumber)
+// progressbar boot
+const getalVeld2 = document.getElementById("supplies");
+const emmerWater = document.getElementById("emmerWater");
 
-console.log(mysteryNumber)
+// gameover status aangeven
+const pElement = document.getElementById("pElement");
+const gameOverPlaatje = document.getElementById("#gameOver");
 
-const pElement = document.querySelector("#pElement")
-const getalVeld = document.querySelector("#leeg")
-const plusKnop1 = document.querySelector("#plus1")
-const minKnop1 = document.querySelector("#wapen1")
-const minKnop2 = document.querySelector("#wapen2")
-const gameOver = document.querySelector("#gameOver")
+// naamveld
+let userName;
 
-function groet(naam){
-    console.log("groet persoon");
-    naamVeld.textContent = naam;
+// audio
+let kanon = new Audio("sounds/cannon.mp3");
+
+// progress bar monster
+let monsterHealth = 7;
+
+// progress bar boot
+let bootSupplies = 4;
+
+let gameBegonnen = false;
+let nameIngevuld = false;
+
+let knoppenAan = true;
+
+// naamveld
+function naamIngevuld(){
+    userName = nameInput.value;
+    uitlegElement.textContent = userName;
+    pElement.textContent = "Succes, " + userName
+    nameIngevuld = true;
 }
 
-function verhoogGetal(){
-    getal += 1
-    updateGetal();
-}
+function startGame(){
+    if(nameIngevuld == false){
+        pElement.textContent = "Vul je naam in voordat je het spel begint!";
+    } else {
+        gameBegonnen = true; 
 
-function verlaagGetal(){
-    getal -= 1
-    updateGetal();
-}
+        monsterHealth = 7;
+        bootSupplies = 4;
 
-function kanonSchot(){
-    getal -=2
-    kanon.play()
-    updateGetal();
-}
-
-function updateGetal() {
-    console.log("getal: " + getal);
-    getalVeld.textContent = getal;
-}
-
-function controleerGetal(){
-    if(getal == 5){
-        getalVeld.src = "images/vol.png";
-        gameOver.src = "images/vol.png";
-        barStatus = true
-        console.log("Goed geraden!")
-    } else if(getal == 4){
-        getalVeld.src = "images/minvol.png";
-        barStatus = true
-        console.log("Helaas dat is te hoog")
-        pElement.textContent = "Lekker bezig!"
-    } else if(getal == 3){
-        getalVeld.src = "images/halfvol.png";
-        barStatus = true
-        console.log("helaas, dat is te laag")
-        pElement.textContent = "Je hebt hem bijna, nog even doorzetten!"
-    } else if(getal == 2){
-        roar.play()
-       getalVeld.src = "images/minleeg.png";
-       barStatus = true
-       console.log("helaas, dat is te laag")
-    } else if(getal == 1){
-        getalVeld.src = "images/minleeg2.png";
-        barStatus = true
-        console.log("helaas, dat is te laag")
-        pElement.textContent = "Je hebt hem bijna, nog even doorzetten!"
-    } else if(getal == 0){
-        getalVeld.src = "images/leeg.png";
-        barStatus = true
-
-        console.log("helaas, dat is te laag")
+        updateMonsterProgressBar();
+        updateBootProgressBar();
     }
 }
 
-setInterval(controleerGetal, 200)
-setInterval(function(){if (barStatus == true){
-    getal--;
-    updateGetal();
-}}, 2000 )
+function monsterHealthGrens(){
+    if(monsterHealth > 12){
+        monsterHealth = 12;
+    } else if(monsterHealth < 0){
+        monsterHealth = 0;
+    }
+}
 
-groet("demi");
-verhoogGetal()
-verlaagGetal()
+function bootSuppliesGrens(){
+    if(bootSupplies > 4){
+        bootSupplies = 4;
+    } else if(bootSupplies < 0){
+        bootSupplies = 0;
+    }
+}
 
-plusKnop1.addEventListener('click', verhoogGetal)
-minKnop1.addEventListener('click', verlaagGetal)
-minKnop2.addEventListener('click', kanonSchot)
+// progress bar monster
+function verhoogProgressBarMonster(){
+    if(gameBegonnen == true){
+        monsterHealth++;
+        monsterHealthGrens();
+
+        if(monsterHealth == 12){
+            pElement.textContent = "Game over...";
+            gameBegonnen = false;
+        }
+
+        updateMonsterProgressBar();
+    }
+}
+
+function verlaagProgressBarMonster(){
+    if(gameBegonnen == true){
+        monsterHealth--;
+        monsterHealthGrens();
+
+        if(monsterHealth == 0){
+            pElement.textContent = "Je hebt gewonnen " + userName + "!";
+            gameBegonnen = false;
+        }
+
+        updateMonsterProgressBar();
+    }
+}
+
+function kanonSchot(){
+    verlaagProgressBarMonster();
+    verlaagProgressBarMonster();
+}
+
+function updateMonsterProgressBar(){
+    progressBar.src = "images/pb" + monsterHealth + ".png";
+}
+
+function verlaagSupplies(){
+    if(gameBegonnen == true && knoppenAan == true){
+        bootSupplies--;
+        bootSuppliesGrens();
+
+        if(bootSupplies == 0 && knoppenAan){
+            knoppenAan = false;
+            // geschreven door bestieeeeeeee
+            // set alle knoppen uit
+            koekjeKnop.classList.add("disabled-image");
+            kanonKnop.classList.add("disabled-image");
+            catapultKnop.classList.add("disabled-image");
+            emmerWater.classList.add("disabled-image");
+
+            setTimeout(() => {
+                knoppenAan = true;
+                // set alle knoppen aan
+                koekjeKnop.classList.remove("disabled-image");
+                kanonKnop.classList.remove("disabled-image");
+                catapultKnop.classList.remove("disabled-image");
+                emmerWater.classList.remove("disabled-image");
+
+            }, 5 * 1000);
+        }
+    }
+}
+
+function updateBootProgressBar(){
+    getalVeld2.src = "images/" + bootSupplies + "supplies.png";
+}
+
+// verandering in de progressbar monster
+setInterval(verhoogProgressBarMonster, 2000);
+
+// verandering in de progressbar boot
+setInterval(function(){
+    if(gameBegonnen == true){
+        bootSupplies++;
+        bootSuppliesGrens();
+        updateBootProgressBar();
+    }
+}, 3500);
+
+// knoppen zorgen ervoor dat de progressbar monster werkt
+koekjeKnop.addEventListener('click', verhoogProgressBarMonster);
+
+catapultKnop.addEventListener('click', verlaagProgressBarMonster);
+catapultKnop.addEventListener('click', verlaagSupplies);
+
+// knoppen zorgen ervoor dat de progressbar bootsupplies werkt
+emmerWater.addEventListener('click', verlaagSupplies);
+
+kanonKnop.addEventListener('click', kanonSchot);
+kanonKnop.addEventListener('click', verlaagSupplies);
+
+// buttonNaam
+buttonNaam.addEventListener('click', naamIngevuld);
+
+startKnop.addEventListener('click', startGame);

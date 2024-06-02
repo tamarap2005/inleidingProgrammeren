@@ -7,50 +7,50 @@
     <link rel="stylesheet" href="css.css">
 </head>
 <body>
-    <div class="interface" id="gameOver">
-        
-        <h1>Hallo <span id="naamveld"> </span></h1>
-        <p>In deze game is het de bedoeling dat jij de zeemonster verslaat met de onderstaande wapens.</p>
-        <p>Niet elke wapen zal even effectief zijn, maar dat is aan jou om erachter te komen!</p>
-        <p>zorg ervoor dat je binnen 30 seconde het monster verslaat, want anders zinkt je boot...</p>
+    <section id="naamVeld">
+        <label for="nameInput">Hallo, wat is jouw naam?</label>
+        <input type="text" name="nameInput" id="nameInput">
+        <button id="buttonNaam">Bevestig</button>
+    </section>
 
-        <section id="wapens">
-            <img id="plus1" src="images/koek.png" alt="koekje">
-            <img id="wapen1" src="images/catapult.jpg" alt="catapult">
-            <img id="plus2" src="images/water.png" alt="emmer">
-            <img id="wapen2" src="images/kanon.webp" alt="kanon">
-        </section>
+    <p>Hallo <span id="naamInUitleg">..., </span> in deze game is het de bedoeling dat je de zeemonster verslaat met de onderstaande supplies.</p>
+    <p>Niet alles zal even effectief zijn, maar dat is aan jou om erachter te komen!</p>
+    <p>Ook kan de boot niet oneindig supplies aanmaken, dus je zal geduld moeten hebben.</p>
+    <p>Zorg er dus voor dat je het monster verslaat, want anders zinkt je boot...</p>
 
-        <p><span id="pElement"> </span></p>
+    <img id="startKnop" src="images/startButton.png" alt="startKnop">
+
+    <section id="wapens">
+        <img id="koekje" src="images/koek.png" alt="koekje">
+        <img id="catapult" src="images/catapult.jpg" alt="catapult">
+        <img id="emmerWater" src="images/water.png" alt="emmer">
+        <img id="kanon" src="images/kanon.webp" alt="kanon">
+    </section>
+
+    <p id="pElement">Vul je naam in!</span></p>
     
-        <section class="progressBar">
-            <img id="monster2" src="images/monster2.png" alt="monster2">
-            <img id="leeg" src="images/leeg.png" alt="progressBar">
-        </section>
+    <section class="progressBar">
+        <img class="miniVersie" src="images/monster2.png" alt="monster2">
+        <img id="leeg" src="images/pb0.png" alt="progressBar">
+    </section>
 
-        <section class="image-container">
-            <article>
-                <img id="boot" src="images/boot.png" alt="boot">
-            </article>
-            <article>
-                <img id="monster" src="images/monster.png" alt="monster">
-            </article>
-        </section>
-    </div> 
-     
-    <script src="js.js"></script>
-    </body>
-    
-</html>
+    <section class="progressBar">
+        <img class="miniVersie" src="images/boot2.png" alt="boot2">
+        <img id="supplies" src="images/0supplies.png" alt="supplies">
+    </section>
 
-<!-- <div>
-        <label for="nameInput">Hallo</label>
-        <input type="text" name="nameInput">
+    <section class="image-container">
+        <article>
+            <img id="boot" src="images/boot.png" alt="boot">
+        </article>
+        <article>
+            <img id="monster" src="images/monster.png" alt="monster">
+        </article>
+    </section>
+
+    <div id="gameOver">
+        <div id="gameOverplaatje"><img src="images/gameOver.jpg" alt="">gameOver</div>
     </div>
-    <p>Succes met het monster verslaan!</p>
-
-    <article id="hart">
-        <img src="images/hart.png" alt="hart">
-        <p>Aantal levens</p>
-    </article>
-    -->
+    <script src="js.js"></script>
+</body>
+</html>
